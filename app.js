@@ -105,10 +105,10 @@ app.use("/prioridade", prioridadeRoutes);
 //     // Retorna a URL pública gerada pelo Vercel Blob
 //     return resultado.url;
 // };
-/ ///
+/ /; //
 
 //Inicia o servidor
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Servidor executado em http://localhost:${port}`);
-});
+// const port = 3000;
+// app.listen(port, () => {
+//   console.log(`Servidor executado em http://localhost:${port}`);
+// });

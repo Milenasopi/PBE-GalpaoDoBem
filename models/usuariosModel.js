@@ -38,6 +38,7 @@ const compararSenhas = async (senha, senhaHash) => {
 // model - usar o id_usuario
 // c) seleção de todos os usuários cadastrados
 const getTodosUsers = async (id_usuario) => {
+  console.log("teste22223333");
   const query = "SELECT * FROM usuarios";
   const { rows } = await conexao.query(query);
   return rows;
