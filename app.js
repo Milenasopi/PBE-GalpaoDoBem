@@ -112,3 +112,5 @@ app.use("/prioridade", prioridadeRoutes);
 // app.listen(port, () => {
 //   console.log(`Servidor executado em http://localhost:${port}`);
 // });
+
+module.exports = app;
