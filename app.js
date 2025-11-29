@@ -39,9 +39,9 @@ const app = express();
 app.use(cors()); //Habilita CORS - para front eu acho
 app.use(express.json()); //Permite receber JSON no body das requisições
 // Configura o body-parser para JSON e permite payloads grandes
-app.use(bodyParser.json({ limit: "50mb" }));
+// app.use(bodyParser.json({ limit: "50mb" }));
 
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 //rotas (PRIMEIRO)
 app.use("/usuarios", usuariosRoutes);

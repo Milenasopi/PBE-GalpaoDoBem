@@ -24,17 +24,12 @@ const adicionarProduto = async (req, res) => {
   } = req.body;
 
   try {      
-    let ImageUrl;
-
-    console.log("imagem_produto",imagem_produto);
-
-    ImageUrl = await uploadBase64ToStorage(imagem_produto);
-
+    
     const Produto = await ProdutosModel.criarProduto(
       nome_produto,
       preco_produto,
       descricao_produto,
-      ImageUrl,
+      imagem_produto,
       id_categoria
     );
     res.status(201).json(Produto);
@@ -46,47 +41,47 @@ const adicionarProduto = async (req, res) => {
   }
 };
 
-// upload de imagem para o vercel Blob
-const uploadBase64ToStorage = async (dataUrl) => {
-  console.log(dataUrl);
-  if (!dataUrl || !dataUrl.startsWith("data:")) {
-    console.log("entrou no erro");
-    throw new Error("Formato de Base64 inválido.");
-  }
+// // upload de imagem para o vercel Blob
+// const uploadBase64ToStorage = async (dataUrl) => {
+//   console.log(dataUrl);
+//   if (!dataUrl || !dataUrl.startsWith("data:")) {
+//     console.log("entrou no erro");
+//     throw new Error("Formato de Base64 inválido.");
+//   }
 
-  const parts = dataUrl.split(";base64,");
+//   const parts = dataUrl.split(";base64,");
 
-  if (parts.length !== 2) {
-    throw new Error("Base64 malformado.");
-  }
-  const mimeType = parts[0].split(":")[1];
-  const base64Data = parts[1];
+//   if (parts.length !== 2) {
+//     throw new Error("Base64 malformado.");
+//   }
+//   const mimeType = parts[0].split(":")[1];
+//   const base64Data = parts[1];
 
-  const fileBuffer = Buffer.from(base64Data, "base64");
+//   const fileBuffer = Buffer.from(base64Data, "base64");
 
-  // Nomes de variáveis
-  const extensaoMapeada = {
-    "image/png": "png",
-    "image/jpeg": "jpg",
-    "application/pdf": "pdf",
-    "image/svg+xml": "svg",
-  };
-  const extensao = extensaoMapeada[mimeType] || "bin";
+//   // Nomes de variáveis
+//   const extensaoMapeada = {
+//     "image/png": "png",
+//     "image/jpeg": "jpg",
+//     "application/pdf": "pdf",
+//     "image/svg+xml": "svg",
+//   };
+//   const extensao = extensaoMapeada[mimeType] || "bin";
 
-  // Gera nome de arquivo único (chave única no Vercel Blob)
-  const NomeArquivo = `${Date.now()}-${Math.random()
-    .toString(36)
-    .substring(2, 9)}.${extensao}`;
+//   // Gera nome de arquivo único (chave única no Vercel Blob)
+//   const NomeArquivo = `${Date.now()}-${Math.random()
+//     .toString(36)
+//     .substring(2, 9)}.${extensao}`;
 
-  // Salva no Vercel Blob
-  const resultado = await put(NomeArquivo, fileBuffer, {
-    access: "public", // Permite acesso público via URL
-    contentType: mimeType, // Define o tipo de conteúdo
-  });
+//   // Salva no Vercel Blob
+//   const resultado = await put(NomeArquivo, fileBuffer, {
+//     access: "public", // Permite acesso público via URL
+//     contentType: mimeType, // Define o tipo de conteúdo
+//   });
 
-  // Retorna a URL pública gerada pelo Vercel Blob
-  return resultado.url;
-};
+//   // Retorna a URL pública gerada pelo Vercel Blob
+//   return resultado.url;
+// };
 
 //3 - Atualizar produto (1)
 const atualizaProduto = async (req, res) => {
