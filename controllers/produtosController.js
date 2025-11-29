@@ -23,8 +23,7 @@ const adicionarProduto = async (req, res) => {
     id_categoria,
   } = req.body;
 
-  try {      
-    
+  try {
     const Produto = await ProdutosModel.criarProduto(
       nome_produto,
       preco_produto,
@@ -113,18 +112,18 @@ const atualizaProduto = async (req, res) => {
 //Atualizar Produto (2)
 // const atualizaProduto = async (req, res) => {
 //     const { id_produto } = req.params;
-    
+
 //     // Desestrutura os dados, incluindo a imagem
-//     const { 
-//         nome_produto, 
-//         preco_produto, 
-//         descricao_produto, 
+//     const {
+//         nome_produto,
+//         preco_produto,
+//         descricao_produto,
 //         imagem_produto, // Pode ser Base64 novo ou a URL antiga
-//         id_categoria 
+//         id_categoria
 //     } = req.body;
 
 //     let ImageUrl = imagem_produto; // Assume que é a URL antiga por padrão
-    
+
 //     try {
 //         // 1. Lógica de Upload da Imagem:
 //         // Verifica se a string da imagem é um Base64 (indicando que foi alterada no front)
@@ -142,10 +141,10 @@ const atualizaProduto = async (req, res) => {
 //             imagem_produto: ImageUrl, // Passa a URL (e não o Base64) para o banco
 //             id_categoria,
 //         });
-        
+
 //         // 3. Resposta de sucesso
 //         res.json(ProdutoAtualizado);
-        
+
 //     } catch (error) {
 //         // 4. Tratamento de Erro (Garante que o JSON é retornado, evitando o erro <!DOCTYPE)
 //         console.error("ERRO CRÍTICO ao alterar produto:", error.message);
@@ -255,5 +254,5 @@ module.exports = {
   getProdutosRecentes,
   buscarProduto,
   getProdutoPorCategoria,
-  uploadBase64ToStorage,
+  // uploadBase64ToStorage,
 };
