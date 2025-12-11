@@ -16,8 +16,6 @@ const { Pool } = require('pg');
 
 
 //para conexão com a Vercel
-require('dotenv').config();
-const { Pool } = require('pg');
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
