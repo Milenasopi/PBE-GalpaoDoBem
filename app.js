@@ -7,7 +7,7 @@ const { put, del } = require("@vercel/blob"); // NOVO: SDK do Vercel Blob
 
 // /// vercel///
 // const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 // const bodyParser = require('body-parser');
 // const { put, del } = require('@vercel/blob'); // NOVO: SDK do Vercel Blob
 // require('dotenv').config();
