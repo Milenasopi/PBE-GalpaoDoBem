@@ -22,6 +22,22 @@ const { put, del } = require("@vercel/blob"); // NOVO: SDK do Vercel Blob
 // app.use(bodyParser.json({ limit: '50mb' }));
 /// ///
 
+
+// --- FIM DA NOVA CONFIGURAÇÃO CORS ---
+
+app.use(express.json()); // Permite receber JSON no body das requisições
+// ... o resto do seu código
+const conexao = require("./conexao");
+// indicando onde estao as rotas
+const usuariosRoutes = require("./routes/usuariosRoutes");
+const movimentacoesRoutes = require("./routes/movimentacoesRoutes");
+//milena
+const categoriasRoutes = require("./routes/categoriasRoutes");
+///
+const produtosRoutes = require("./routes/produtosRoutes");
+
+const app = express();
+
 // --- INÍCIO DA NOVA CONFIGURAÇÃO CORS ---
 
 // 1. Defina as origens permitidas
@@ -53,23 +69,8 @@ const corsOptions = {
 // 2. Use o middleware CORS com as opções configuradas
 app.use(cors(corsOptions));
 
-// --- FIM DA NOVA CONFIGURAÇÃO CORS ---
-
-app.use(express.json()); // Permite receber JSON no body das requisições
-// ... o resto do seu código
-const conexao = require("./conexao");
-// indicando onde estao as rotas
-const usuariosRoutes = require("./routes/usuariosRoutes");
-const movimentacoesRoutes = require("./routes/movimentacoesRoutes");
-//milena
-const categoriasRoutes = require("./routes/categoriasRoutes");
-///
-const produtosRoutes = require("./routes/produtosRoutes");
-
-const app = express();
-
 // Middlewares
-app.use(cors()); //Habilita CORS - para front eu acho
+//app.use(cors()); //Habilita CORS - para front eu acho
 app.use(express.json()); //Permite receber JSON no body das requisições
 // Configura o body-parser para JSON e permite payloads grandes
 // app.use(bodyParser.json({ limit: "50mb" }));
