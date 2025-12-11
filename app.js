@@ -22,8 +22,41 @@ const { put, del } = require("@vercel/blob"); // NOVO: SDK do Vercel Blob
 // app.use(bodyParser.json({ limit: '50mb' }));
 /// ///
 
-// comunicar com o front
-const cors = require("cors");
+// --- INÍCIO DA NOVA CONFIGURAÇÃO CORS ---
+
+// 1. Defina as origens permitidas
+const allowedOrigins = [
+  'http://localhost:3000', // Se o seu Front-end local roda em 3000
+  'http://localhost:3001', // Se o seu Front-end local roda em outra porta (padrão React)
+  'https://galpaodobem.vercel.app', // <--- Seu Front-end Vercel
+];
+
+const corsOptions = {
+  // Configura a função que checa se a origem é permitida
+  origin: (origin, callback) => {
+    // Se a origem da requisição não existir (ex: requisição de servidor para servidor, mobile ou ferramentas como Postman)
+    if (!origin) return callback(null, true);
+    
+    // Se a origem estiver na lista de permitidas
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      // Se a origem não estiver na lista (bloqueia o acesso)
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Permite todos os métodos HTTP comuns
+  credentials: true, // Se você precisar enviar cookies ou cabeçalhos de autorização
+  optionsSuccessStatus: 204
+};
+
+// 2. Use o middleware CORS com as opções configuradas
+app.use(cors(corsOptions));
+
+// --- FIM DA NOVA CONFIGURAÇÃO CORS ---
+
+app.use(express.json()); // Permite receber JSON no body das requisições
+// ... o resto do seu código
 const conexao = require("./conexao");
 // indicando onde estao as rotas
 const usuariosRoutes = require("./routes/usuariosRoutes");
@@ -108,9 +141,9 @@ app.use("/prioridade", prioridadeRoutes);
 / /; //
 
 //Inicia o servidor
-// const port = 3000;
-// app.listen(port, () => {
-//   console.log(`Servidor executado em http://localhost:${port}`);
-// });
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Servidor executado em http://localhost:${port}`);
+});
 
 module.exports = app;
