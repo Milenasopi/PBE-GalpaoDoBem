@@ -25,7 +25,6 @@ const { put, del } = require("@vercel/blob"); // NOVO: SDK do Vercel Blob
 
 // --- FIM DA NOVA CONFIGURAÇÃO CORS ---
 
-app.use(express.json()); // Permite receber JSON no body das requisições
 // ... o resto do seu código
 const conexao = require("./conexao");
 // indicando onde estao as rotas
@@ -68,6 +67,7 @@ const corsOptions = {
 
 // 2. Use o middleware CORS com as opções configuradas
 app.use(cors(corsOptions));
+app.use(express.json()); // Permite receber JSON no body das requisições
 
 // Middlewares
 //app.use(cors()); //Habilita CORS - para front eu acho
